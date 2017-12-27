@@ -13,10 +13,13 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
+    int qty = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        displayQtyPrice(qty);
     }
 
     /**
@@ -24,26 +27,31 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
         int qty = 3;
-        display(qty);
-        displayPrice(qty*5);
+        displayQtyPrice(qty);
     }
 
     /**
      * This method is called when the plus button is clicked.
      */
     public void increment(View view) {
-        int qty = 3;
-        display(qty);
-        displayPrice(qty*5);
+        qty++;
+        displayQtyPrice(qty);
     }
 
     /**
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
-        int qty = 1;
+        if (qty >0){
+            qty--;
+        }
+        displayQtyPrice(qty);
+    }
+
+    private static int PRICE = 5;
+    private void displayQtyPrice(int qty){
         display(qty);
-        displayPrice(qty*5);
+        displayPrice(PRICE * qty);
     }
     /**
      * This method displays the given quantity value on the screen.
