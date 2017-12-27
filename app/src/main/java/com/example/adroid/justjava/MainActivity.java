@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        int qty = 3;
         displayQtyPrice(qty);
     }
 
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void increment(View view) {
         qty++;
-        displayQtyPrice(qty);
+        display(qty);
     }
 
     /**
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         if (qty >0){
             qty--;
         }
-        displayQtyPrice(qty);
+        display(qty);
     }
 
     private static int PRICE = 5;
