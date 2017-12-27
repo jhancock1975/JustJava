@@ -13,20 +13,24 @@ import java.text.NumberFormat;
  */
 public class MainActivity extends AppCompatActivity {
 
+    private static int PRICE = 5;
     int qty = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        displayQtyPrice(qty);
+        display(qty);
+        displayPrice(qty);
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        displayPrice(qty);
+        String priceMessage = "Total: $" + PRICE*qty + "\nThank you!";
+        displayMessage(priceMessage);
     }
 
     /**
@@ -41,17 +45,12 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the minus button is clicked.
      */
     public void decrement(View view) {
-        if (qty >0){
+        if (qty > 0) {
             qty--;
         }
         display(qty);
     }
 
-    private static int PRICE = 5;
-    private void displayQtyPrice(int qty){
-        display(qty);
-        displayPrice(PRICE * qty);
-    }
     /**
      * This method displays the given quantity value on the screen.
      */
@@ -66,6 +65,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private void displayPrice(int number) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+        priceTextView.setText(NumberFormat.getCurrencyInstance().format(PRICE * number));
+    }
+
+    /**
+     * This method displays the given text on the screen.
+     */
+    private void displayMessage(String message) {
+        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        priceTextView.setText(message);
     }
 }
