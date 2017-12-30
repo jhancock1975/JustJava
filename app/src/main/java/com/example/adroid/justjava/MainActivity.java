@@ -20,17 +20,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        display(qty);
-        displayPrice(qty);
     }
 
     /**
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        String priceMessage = "Total: $" + PRICE*qty + "\nThank you!";
+        String priceMessage = createOrderSummary(calculatePrice());
         displayMessage(priceMessage);
+    }
+
+    /**
+     * create string containing the order summary
+     * @param price - the price of the order
+     * @return - string containing the order summary
+     */
+    private String createOrderSummary(int price) {
+        return "Name: John Hancock\nQuantity: " + qty + "\nTotal: $" + price + "\nThank you!";
     }
 
     /**
@@ -59,14 +65,17 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText("" + number);
     }
 
-
+    private int calculatePrice(){
+        return qty * PRICE;
+    }
     /**
      * This method displays the given price on the screen.
      */
     private void displayPrice(int number) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(PRICE * number));
+        priceTextView.setText(NumberFormat.getCurrencyInstance().format(calculatePrice()));
     }
+
 
     /**
      * This method displays the given text on the screen.
