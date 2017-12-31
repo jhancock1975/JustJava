@@ -28,9 +28,14 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
         // Get checked/not checked state of whipped cream checkbox
         boolean addWhippedCream = ((CheckBox) findViewById(R.id.whipped_checkbox)).isChecked();
-        Log.d(this.getClass().getName(), "addWhippedCream = " + addWhippedCream);
+        Log.d(this.getClass().getSimpleName(), "addWhippedCream = " + addWhippedCream);
 
-        String priceMessage = createOrderSummary(calculatePrice(), addWhippedCream);
+
+        // Get checked/not checked state of chocolate checkbox
+        boolean addChocolate= ((CheckBox) findViewById(R.id.chocolate_checkbox)).isChecked();
+        Log.d(this.getClass().getSimpleName(), "addChocolate = " + addChocolate);
+
+        String priceMessage = createOrderSummary(calculatePrice(), addWhippedCream, addChocolate);
 
         displayMessage(priceMessage);
     }
@@ -39,13 +44,16 @@ public class MainActivity extends AppCompatActivity {
      * create string containing the order summary
      *
      * @param price - the price of the order
-     * @param addWhippedCream
+     * @param addWhippedCream - set to true if we want to display text saying the whipped cream
+     *                        checkbox is checked.
      * @return - string containing the order summary
      */
-    private String createOrderSummary(int price, boolean addWhippedCream) {
+    private String createOrderSummary(int price, boolean addWhippedCream,
+                                      boolean addChocolate) {
 
         return "Name: John Hancock"
                 + "\nAdd whipped cream? " + addWhippedCream
+                + "\nAdd chocolate? " + addChocolate
                 + "\nQuantity: " + qty
                 + "\nTotal: $" + price
                 + "\nThank you!";
