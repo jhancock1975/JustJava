@@ -7,6 +7,31 @@
     android:orientation="vertical"
     tools:context="com.example.adroid.justjava.MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Toppings"
+        android:textAllCaps="true" />
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/whipped_checkbox"
+            android:layout_marginLeft="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="24dp"
+            android:text="Whipped Cream"
+            android:textSize="16sp"/>
+    </android.support.v7.widget.LinearLayoutCompat>
 
     <TextView
         android:layout_width="wrap_content"
