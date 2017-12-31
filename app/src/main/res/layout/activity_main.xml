@@ -11,6 +11,13 @@
         android:orientation="vertical"
         tools:context="com.example.adroid.justjava.MainActivity">
 
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Name"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

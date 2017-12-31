@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -35,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
         boolean addChocolate= ((CheckBox) findViewById(R.id.chocolate_checkbox)).isChecked();
         Log.d(this.getClass().getSimpleName(), "addChocolate = " + addChocolate);
 
-        String priceMessage = createOrderSummary(calculatePrice(), addWhippedCream, addChocolate);
+        String userName = ((EditText) findViewById(R.id.user_name)).getText().toString();
+        Log.d(this.getClass().getSimpleName(), "user_name =" + userName);
+
+
+        String priceMessage = createOrderSummary(calculatePrice(), addWhippedCream, addChocolate,
+                userName);
 
         displayMessage(priceMessage);
     }
@@ -44,14 +50,17 @@ public class MainActivity extends AppCompatActivity {
      * create string containing the order summary
      *
      * @param price - the price of the order
-     * @param addWhippedCream - set to true if we want to display text saying the whipped cream
-     *                        checkbox is checked.
+     * @param addWhippedCream - we will use to display true or false after the add whipped cream
+     *                        question in the order summary
+     * @param addChocolate - we will use to display true or false after the add chocolate
+     *                        question in the order summary
+     * @param userName - name the user entered at the top of the order form
      * @return - string containing the order summary
      */
     private String createOrderSummary(int price, boolean addWhippedCream,
-                                      boolean addChocolate) {
+                                      boolean addChocolate, String userName) {
 
-        return "Name: John Hancock"
+        return "Name: " + userName
                 + "\nAdd whipped cream? " + addWhippedCream
                 + "\nAdd chocolate? " + addChocolate
                 + "\nQuantity: " + qty
