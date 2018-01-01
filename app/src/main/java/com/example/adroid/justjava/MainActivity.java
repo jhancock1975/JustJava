@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * This app displays an order form to order coffee.
@@ -15,7 +16,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PRICE = 5;
-    int qty = 0;
+    int qty = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(this.getClass().getSimpleName(), "user_name =" + userName);
 
 
-        String priceMessage = createOrderSummary(calculatePrice(), addWhippedCream, addChocolate,
-                userName);
+        String priceMessage = createOrderSummary(calculatePrice(addWhippedCream, addChocolate),
+                addWhippedCream, addChocolate, userName);
 
         displayMessage(priceMessage);
     }
@@ -72,7 +73,12 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the plus button is clicked.
      */
     public void increment(View view) {
-        qty++;
+        if (qty < 100){
+            qty++;
+        } else {
+            Toast.makeText(this, "We can only fill orders of up to 100 coffees.",
+                    Toast.LENGTH_SHORT).show();
+        }
         display(qty);
     }
 
@@ -82,7 +88,10 @@ public class MainActivity extends AppCompatActivity {
     public void decrement(View view) {
         if (qty > 0) {
             qty--;
-        }
+        }  else {
+        Toast.makeText(this, "You must order at least one coffee.",
+                Toast.LENGTH_SHORT).show();
+    }
         display(qty);
     }
 
@@ -94,8 +103,11 @@ public class MainActivity extends AppCompatActivity {
         quantityTextView.setText("" + number);
     }
 
-    private int calculatePrice() {
-        return qty * PRICE;
+    private int calculatePrice(boolean addWhippedCream, boolean addChocolate) {
+        int basePrice = PRICE;
+        basePrice += addWhippedCream ? 1 : 0;
+        basePrice += addChocolate ? 2 : 0;
+        return qty * basePrice;
     }
     
     /**
