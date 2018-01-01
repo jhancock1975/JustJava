@@ -18,7 +18,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private static final int PRICE = 5;
-    int qty = 0;
+    int qty = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,17 +63,20 @@ public class MainActivity extends AppCompatActivity {
     private void createOrderSummary(int price, boolean addWhippedCream,
                                       boolean addChocolate, String userName) {
 
-        String eMailMsg = "Name: " + userName
-                + "\nAdd whipped cream? " + addWhippedCream
-                + "\nAdd chocolate? " + addChocolate
-                + "\nQuantity: " + qty
-                + "\nTotal: $" + price
-                + "\nThank you!";
+        String eMailMsg = getResources().getString(R.string.order_summary_name, userName)
+                + "\n" + getResources().getString(R.string.order_summary_whipped_cream,
+                    addWhippedCream)
+                + "\n" + getResources().getString(R.string.order_summary_chocolate,addChocolate)
+                + "\n" + getResources().getString(R.string.order_summary_quantity, qty)
+                + "\n" + getResources().getString(R.string.order_summary_price,
+                price+"")
+                + "\n" + getResources().getString(R.string.thank_you);
 
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setType("*/*");
         intent.setData(Uri.parse("mailto:"));
-        intent.putExtra(Intent.EXTRA_SUBJECT, "JustJava order for: " + userName);
+        intent.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(
+                R.string.order_summary_email_subject, userName));
         intent.putExtra(Intent.EXTRA_TEXT, eMailMsg);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         if (qty < 100){
             qty++;
         } else {
-            Toast.makeText(this, "We can only fill orders of up to 100 coffees.",
+            Toast.makeText(this, R.string.max_order_message,
                     Toast.LENGTH_SHORT).show();
         }
         display(qty);
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         if (qty > 0) {
             qty--;
         }  else {
-        Toast.makeText(this, "You must order at least one coffee.",
+        Toast.makeText(this, R.string.min_order_msg,
                 Toast.LENGTH_SHORT).show();
     }
         display(qty);
@@ -121,11 +124,5 @@ public class MainActivity extends AppCompatActivity {
         return qty * basePrice;
     }
     
-    /**
-     * This method displays the given text on the screen.
-     */
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        orderSummaryTextView.setText(message);
-    }
+
 }
